@@ -41,6 +41,21 @@ async function run() {
             res.send(result);
         });
 
+        //Update
+        app.put('/inventorie/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)};
+            const updateInventorie = req.body;
+            const options = {upsert: true};
+            const updateDoc = {
+                $set: {
+                    quantity:updateInventorie.quantity
+                }
+            }
+            const result = await inventoriesCollection.updateOne(query, updateDoc, options);
+            res.send(result);
+        });
+
         //Delete
         app.delete('/inventorie/:id', async(req, res) => {
             const id = req.params.id;
