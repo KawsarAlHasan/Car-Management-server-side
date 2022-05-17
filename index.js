@@ -34,8 +34,17 @@ async function run() {
             res.send(inventory);
         });
 
+        //My items
+        app.get('/myitems', async(req, res) => {
+            const email = req.query.email;
+            const query = {email: email};
+            const cursor = inventoriesCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
         //post
-        app.post('/inventorie', async(req, res) => {
+        app.post('/myitems', async(req, res) => {
             const newInventorie = req.body;
             const result = await inventoriesCollection.insertOne(newInventorie);
             res.send(result);
@@ -62,7 +71,7 @@ async function run() {
             const query = {_id: ObjectId(id)};
             const result = await inventoriesCollection.deleteOne(query);
             res.send(result);
-        })
+        });
 
     }
     finally {
