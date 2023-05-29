@@ -10,10 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const mongodbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.bb4lasn.mongodb.net/`
 
-
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.dfuca.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const client = new MongoClient(mongodbUrl, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
     try {
